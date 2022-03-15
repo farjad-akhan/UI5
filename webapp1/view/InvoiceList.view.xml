@@ -1,0 +1,39 @@
+<mvc:View
+	controllerName="UI5_new.controller.InvoiceList"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+	<List
+		id="invoiceList"
+		class="sapUiResponsiveMargin"
+		width="auto"
+		items="{
+			path : 'Main>/Invoices'
+		}">
+		<headerToolbar>
+			<Toolbar>
+				<Title text="{i18n>invoiceListTitle}"/>
+				<ToolbarSpacer/>
+				<SearchField width="50%" search=".onFilterInvoices"/>
+			</Toolbar>
+		</headerToolbar>
+		<items>
+			<ObjectListItem
+				title="{Main>Quantity} x {Main>ProductName}"
+				number="{
+					parts: [{path: 'Main>ExtendedPrice'}, {path: 'view>/currency'}],
+					type: 'sap.ui.model.type.Currency',
+					formatOptions: {
+						showMeasure: false
+					}
+				}"
+				numberUnit="{view>/currency}"
+				numberState="{=	${Main>ExtendedPrice} > 50 ? 'Error' : 'Success' }"
+				type="Navigation"
+				press=".onPress">
+				<firstStatus>
+					<ObjectStatus text="{Main>Status}"/>
+				</firstStatus>
+			</ObjectListItem>
+		</items>
+	</List>
+</mvc:View>
